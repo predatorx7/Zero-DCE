@@ -22,8 +22,9 @@ final mainAppSettings = AppSettings<Object, DependencyObject>(
   appName: 'Cat',
   dependencies: (input) async {
     final _input = input as AppDependency;
-    final provider = _input.ref.read(modelInterpretorProvider.notifier);
-    await supplyModel(RemoteModelNames.lightWeight18, provider);
+    await _input.ref
+        .read(modelInterpretorProvider.notifier)
+        .supplyModel(RemoteModelNames.lightWeight18);
   },
   theme: AppTheme.regular,
   identifier: SettingsFor.main,
