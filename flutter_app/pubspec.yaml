@@ -19,7 +19,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   magnific_ui: ^0.2.1
   magnific_core: ^0.1.2
-  app_boot: ^0.1.0
+  app_boot: ^0.2.1
   riverpod: ^1.0.0
   flutter_riverpod: ^1.0.0
   dio: ^4.0.4
@@ -34,6 +34,11 @@ dependencies:
   firebase_core: ^1.6.0
   firebase_crashlytics: ^2.2.1
   firebase_analytics: ^9.0.2
+  tflite_flutter: ^0.9.0
+  camera: ^0.9.4+5
+  firebase_ml_model_downloader: ^0.1.0+4
+  nil: ^1.1.1
+  video_player: ^2.2.10
 
 dev_dependencies:
   build_runner: ^2.1.5

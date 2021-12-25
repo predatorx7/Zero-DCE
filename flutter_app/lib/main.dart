@@ -1,5 +1,4 @@
 import 'package:app_boot/app_boot.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:magnific_core/magnific_core.dart';
@@ -12,12 +11,12 @@ import 'src/utils/logging.dart';
 void main() {
   final bootstrap = BootstrapApp(
     onStart: () async {
-      await initFirebase();
-
       settingsManager.settings = mainAppSettings;
+
+      await initFirebase();
     },
     loggingManager: () {
-      return createDefaultLoggingManager(FirebaseCrashlytics.instance);
+      return createDefaultLoggingManager();
     },
     onStarted: bootstrapFutures,
   );

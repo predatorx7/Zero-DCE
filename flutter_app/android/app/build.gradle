@@ -32,7 +32,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    flutter.minSdkVersion = 19
+    flutter.minSdkVersion = 24
 
     compileSdkVersion flutter.compileSdkVersion
 

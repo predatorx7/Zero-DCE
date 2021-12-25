@@ -1,33 +1,62 @@
+import 'package:app_boot/screen/launch.dart';
+import 'package:cat/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:magnific_core/magnific_core.dart';
+import 'package:video_player/video_player.dart';
 
-class _AppSplashFragment extends StatelessWidget {
-  const _AppSplashFragment({Key? key}) : super(key: key);
+class AppSplashFragment extends StatefulWidget {
+  const AppSplashFragment({
+    Key? key,
+    required this.animatingNotifier,
+  }) : super(key: key);
+
+  final SplashAnimatingNotifier animatingNotifier;
+
+  @override
+  State<AppSplashFragment> createState() => _AppSplashFragmentState();
+}
+
+class _AppSplashFragmentState extends State<AppSplashFragment> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _start();
+  }
+
+  Future<void> _start() async {
+    _controller = VideoPlayerController.asset(
+      Assets.anim.eyeMp4,
+      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+    );
+    await _controller.initialize();
+    setState(() {});
+    await _controller.play();
+    await Future.delayed(_controller.value.duration);
+    widget.animatingNotifier.onCompleted();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final overlay = AppSystemUIOverlayStyle.fromColor(
-      Colors.black,
-      statusBarBrightness: Brightness.light,
-      navigationBarBrightness: Brightness.light,
-    );
-
     return Scaffold(
-      backgroundColor: Colors.black,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        // ignore: deprecated_member_use
-        brightness: Brightness.dark,
-        systemOverlayStyle: overlay,
-      ),
-      body: const Center(
-        child: Text('CAT'),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SizedBox(
+          height: 250,
+          child: _controller.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              : null,
+        ),
       ),
     );
   }
 }
-
-const appSplashScreen = _AppSplashFragment();

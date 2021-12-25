@@ -1,4 +1,6 @@
 import 'package:app_boot/app_boot.dart';
+import 'package:cat/src/di/model_interpretor.dart';
+import 'package:cat/src/model/tflite.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +21,9 @@ final mainAppSettings = AppSettings<Object, DependencyObject>(
   flavorName: 'main',
   appName: 'Cat',
   dependencies: (input) async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    final _input = input as AppDependency;
+    final provider = _input.ref.read(modelInterpretorProvider.notifier);
+    await supplyModel(RemoteModelNames.lightWeight18, provider);
   },
   theme: AppTheme.regular,
   identifier: SettingsFor.main,

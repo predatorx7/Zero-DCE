@@ -2,14 +2,13 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:magnific_core/magnific_core.dart';
 
-FlutterLoggingManager createDefaultLoggingManager(
-    FirebaseCrashlytics crashlytics) {
+FlutterLoggingManager createDefaultLoggingManager() {
   return FirebaseFlutterLoggingManager(
     level: kDebugMode ? Level.ALL : Level.WARNING,
     tree: kIsWeb || kDebugMode
         ? PrintingColoredLogsTree()
         : FirebaseLogsTree(
-            crashlytics: crashlytics,
+            crashlytics: FirebaseCrashlytics.instance,
           ),
   );
 }

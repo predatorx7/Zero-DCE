@@ -63,7 +63,10 @@ class $AssetsAnimGen {
   const $AssetsAnimGen();
 
   /// File path: assets/anim/eye.gif
-  AssetGenImage get eye => const AssetGenImage('assets/anim/eye.gif');
+  AssetGenImage get eyeGif => const AssetGenImage('assets/anim/eye.gif');
+
+  /// File path: assets/anim/eye.mp4
+  String get eyeMp4 => 'assets/anim/eye.mp4';
 }
 
 class Assets {

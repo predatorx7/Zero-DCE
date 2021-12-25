@@ -7,7 +7,7 @@ import 'package:magnific_core/magnific_core.dart';
 
 import 'widget/splash.dart';
 
-class AppLaunchScreen extends ConsumerWidget {
+class AppLaunchScreen extends ConsumerStatefulWidget {
   static const routeName = '/';
 
   final String? routePath;
@@ -20,17 +20,39 @@ class AppLaunchScreen extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AppLaunchScreen> createState() => _AppLaunchScreenState();
+}
+
+class _AppLaunchScreenState extends ConsumerState<AppLaunchScreen> {
+  late SplashAnimatingNotifier _animatingNotifier;
+  @override
+  void initState() {
+    super.initState();
+    _animatingNotifier = SplashAnimatingNotifier();
+    _animatingNotifier.onStarted();
+  }
+
+  @override
+  void dispose() {
+    _animatingNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return LaunchScreen<DependencyObject>(
-      routePath: routePath,
-      reRoutePath: reRoutePath,
+      routePath: widget.routePath,
+      reRoutePath: widget.reRoutePath,
       dependencyObjectProvider: (context) {
         return AppDependency(context, ref);
       },
       onError: (e, s) {
         logger.severe('Error on launch screen', e, s);
       },
-      child: appSplashScreen,
+      animatingNotifier: _animatingNotifier,
+      child: AppSplashFragment(
+        animatingNotifier: _animatingNotifier,
+      ),
     );
   }
 }
