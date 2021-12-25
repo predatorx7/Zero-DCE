@@ -1,14 +1,23 @@
-# Zero-DCE and Zero-DCE++(Lite architechture for Mobile and edge Devices) 
-
+# Zero-DCE and Zero-DCE++(Lite architechture for Mobile and edge Devices) [![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FThehunk1206%2FZero-DCE)](https://twitter.com/intent/tweet?text=checkout%20this%20implementation%20of%20Zero-DCE:&url=https%3A%2F%2Fgithub.com%2FThehunk1206%2FZero-DCE)
 [![TensorFlow](https://img.shields.io/badge/madewith%20TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white)](https://tensorflow.org)
 [![Keras](https://img.shields.io/badge/Madewith%20Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white)](https://keras.io/)
 [![Python](https://img.shields.io/badge/Madewith%20python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/zero-reference-deep-curve-estimation-for-low/low-light-image-enhancement-on-dicm)](https://paperswithcode.com/sota/low-light-image-enhancement-on-dicm?p=zero-reference-deep-curve-estimation-for-low)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/zero-reference-deep-curve-estimation-for-low/low-light-image-enhancement-on-lime)](https://paperswithcode.com/sota/low-light-image-enhancement-on-lime?p=zero-reference-deep-curve-estimation-for-low)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/zero-reference-deep-curve-estimation-for-low/low-light-image-enhancement-on-mef)](https://paperswithcode.com/sota/low-light-image-enhancement-on-mef?p=zero-reference-deep-curve-estimation-for-low)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/zero-reference-deep-curve-estimation-for-low/low-light-image-enhancement-on-npe)](https://paperswithcode.com/sota/low-light-image-enhancement-on-npe?p=zero-reference-deep-curve-estimation-for-low)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/zero-reference-deep-curve-estimation-for-low/low-light-image-enhancement-on-vv)](https://paperswithcode.com/sota/low-light-image-enhancement-on-vv?p=zero-reference-deep-curve-estimation-for-low)
 
-[![GitHub license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Thehunk1206/Zero-DCE?style=social)](https://github.com/Thehunk1206/Zero-DCE/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Thehunk1206/Zero-DCE?style=social)](https://github.com/Thehunk1206/Zero-DCE/network/members)
 [![GitHub watchers](https://img.shields.io/github/watchers/Thehunk1206/Zero-DCE?style=social)](https://github.com/Thehunk1206/Zero-DCE/watchers)
+
+[![Github](https://img.shields.io/badge/Github-black?style=flat&logo=github)](https://github.com/Thehunk1206/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue)](https://www.linkedin.com/in/tauhid-khan-24bb45177/)
+![Twitter](https://img.shields.io/twitter/follow/KhanTauhid8?style=social)
+[![Gmail](https://img.shields.io/badge/Gmail-mail2tauhidkhan@gmail.com-red?style=flat&logo=gmail)](mailto:mail2tauhidkhan@gmail.com)
 
 
 ## Papers Abstract
@@ -41,6 +50,10 @@ via Zero-Reference Deep Curve Estimation (Zero-DCE++)](https://arxiv.org/pdf/210
 Check out the original Pytorch Implementation of Zero-DCE [here](https://github.com/Li-Chongyi/Zero-DCE)
 and the original Pytorch implementation of Zero-DCE++ [here](https://github.com/Li-Chongyi/Zero-DCE_extension)
 
+## Low Light Video Enhancement Demo
+For better experience, watch demo video in full screen mode. 
+
+https://user-images.githubusercontent.com/45728323/146875651-415f95f3-1eb7-4e4b-91e3-b075e8b34cc5.mp4
 
 ## Proposed Zero-DCE Framework
 ![Proposed Zero-DCE Framework](image_assets/Proposed_Architecture.png)
@@ -115,18 +128,19 @@ lol_datasetv2
 
 0 directories, 500 files
 ```
+Note: The Zero-DCE framework uses no reference image(correnponding enhanced image) to train the DCE-net model, therefore I have used only low light images from the dataset folder.
 ### Dataset link: [LoL-dataset](https://drive.google.com/file/d/157bjO1_cFuSd0HWDUuAmcHRJDVyWpOxB/view)
 
 ## Usage
 * Clone this github [repo](https://github.com/Thehunk1206/Zero-DCE)
 * Run ```$pip install -r requirements.txt``` to install required python packgages.
 
-### For training the model, run following
+### **For training the model, run following**
 ```
 $ python train_model.py --help
 usage: train_model.py [-h] --dataset_dir DATASET_DIR [--checkpoint_dir CHECKPOINT_DIR] [--model_type MODEL_TYPE] [--IMG_H IMG_H]
                       [--IMG_W IMG_W] [--IMG_C IMG_C] [--batch_size BATCH_SIZE] [--epoch EPOCH] [--learning_rate LEARNING_RATE]
-                      [--dataset_split DATASET_SPLIT] [--logdir LOGDIR] [--iteration ITERATION]
+                      [--dataset_split DATASET_SPLIT] [--logdir LOGDIR] [--filters FILTERS] [--iteration ITERATION]
 
 Model training scipt for Zero-DCE models
 
@@ -149,6 +163,7 @@ optional arguments:
   --dataset_split DATASET_SPLIT
                         Dataset split
   --logdir LOGDIR       Log directory
+  --filters FILTERS     Number of filters
   --iteration ITERATION
                         Post enhancing iteration
 ```
@@ -160,10 +175,12 @@ Example
                       --IMG_H 512 \
                       --IMG_W 512 \
                       --epoch 60 \
-                      --batch_size 4 \ 
+                      --batch_size 4 \
+                      -- learning_rate 0.0001\
+                      --filters 32 \ 
                       --iteration 6 \
 ```
-### Testing the model on the test dataset
+### **Testing the model on the test dataset**
 ```
 $ python test_model.py --help                                                                                                                    
 usage: test_model.py [-h] --model_path MODEL_PATH [--dataset_path DATASET_PATH] [--img_h IMG_H] [--img_w IMG_W] [--save_plot SAVE_PLOT]
@@ -193,7 +210,7 @@ Example
                       --save_plot 1 \
                       --load_random_data 0
 ```
-### Inferencing on single image for enhancement
+### **Inferencing on single image for enhancement**
 ```
 $ python single_image_enhance.py --help                                                                                      
 usage: single_image_enhance.py [-h] --model_path MODEL_PATH --image_path IMAGE_PATH [--img_h IMG_H] [--img_w IMG_W] [--plot PLOT] [--save_result SAVE_RESULT] [--iteration ITERATION]
@@ -224,6 +241,88 @@ $ python single_image_enhance.py --model_path Trained_model/zero_dce_iter6/zero_
                                 --save_result 1 \
                                 --iteration 6 \
 ```
+### **Convert tensorflow SavedModel to tflite model**
+```
+$ python convert_to_tflite.py --help                                                                                    
+usage: convert_to_tflite.py [-h] --model_path MODEL_PATH [--output_path OUTPUT_PATH] [--data_points DATA_POINTS]
+                            [--num_threads NUM_THREADS] [--quantize {0,1}]
+
+Convert saved model to tflite
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model_path MODEL_PATH
+                        Path to saved model
+  --output_path OUTPUT_PATH
+                        Path to output tflite model
+  --data_points DATA_POINTS
+                        Number of data points to test
+  --num_threads NUM_THREADS
+                        Number of threads to use
+  --quantize {0,1}      Quantize model, 0: Do not Quantize, 1: Quantize
+```
+Example
+```
+$ python convert_to_tflite.py --model_path Trained_model/zero_dce_lite_iter8/zero_dce_lite_160x160_iter8_30 \
+                              --out_path TFLITE_model/
+                              --data_points 200
+                              --num_threads 4
+                              --quantize 0
+```
+
+### **Run tflite model on single image**
+```
+$ python command_line_scripts/single_image_enhance_tflite.py --help
+usage: single_image_enhance_tflite.py [-h] [--tflite_path TFLITE_PATH] [--img_path IMG_PATH] [--iteration ITERATION] [--plot PLOT] [--save_result SAVE_RESULT]
+
+Run inference on a single image.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --tflite_path TFLITE_PATH
+                        path to tflite model
+  --img_path IMG_PATH   path to image file
+  --iteration ITERATION
+                        number of Post Ehnancing iterations
+  --plot PLOT           plot enhanced image. 0: no plot, 1: plot
+  --save_result SAVE_RESULT
+                        save enhanced image. 0: no save, 1: save
+```
+Example
+```
+$ python command_line_scripts/single_image_enhance_tflite.py --tflite_path ./TFLITE_models/zero_dce_lite_f16_160x160_iter8_30.tflite \
+                                                            --img_path ./sample_images/low_light_pizza.jpeg \
+                                                            --plot 1 \
+                                                            --save_result 0
+```
+### **Run inference on video**
+```
+$ python command_line_scripts/enhance_low_light_video.py --help                                                                                                                                                       
+usage: enhance_low_light_video.py [-h] --model_path MODEL_PATH [--video_path VIDEO_PATH] [--img_h IMG_H] [--img_w IMG_W] [--downsample_factor DOWNSAMPLE_FACTOR] [--show_ogframe]
+
+Zero DCE model
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model_path MODEL_PATH
+                        Path to the model file
+  --video_path VIDEO_PATH
+                        Path to the video file. If not given the camera will be used
+  --img_h IMG_H         Image height
+  --img_w IMG_W         Image width
+  --downsample_factor DOWNSAMPLE_FACTOR
+                        Downsample factor
+  --show_ogframe        Show original frame
+```
+example
+```
+$ python command_line_scripts/enhance_low_light_video.py --model_path ./Trained_model/zero_dce_lite_iter8/zero_dce_lite_160x160_iter8_30 \
+                                                        --video ./sample_images/low_ligh_video_cliped.mp4 \
+                                                        --img_h 160 \ 
+                                                        --img_w 160 \
+                                                        --downsample_factor 0.8
+                                                        --show_ogframe 
+```
 
 # Visual Results
 
@@ -237,7 +336,7 @@ $ python single_image_enhance.py --model_path Trained_model/zero_dce_iter6/zero_
 ![test_image_plot_zero_dce_iter6_30.png](image_assets/test_image_plot_zero_dce_iter6_30.png)
 
 
-### 3.Model: Zero-DCE, Epoch:30, Inout size: 200x300, Iteration:8, Average Time: CPU-170.0 ms
+### 3.Model: Zero-DCE, Epoch:30, Input size: 200x300, Iteration:8, Average Time: CPU-170.0 ms
 ![test_image_plot_zero_dce_iter8_30](image_assets/test_image_plot_zero_dce_iter8_30.png)
 
 
@@ -246,15 +345,17 @@ $ python single_image_enhance.py --model_path Trained_model/zero_dce_iter6/zero_
 
 
 ### 5.Model: Zero-DCE Lite, Epoch:60, Input size: 200x300, Iteration:8, Average Time: CPU-90 ms
-![test_image_plot_zero_dce_lite_iter8](image_assets/test_image_plot_zero_dce_lite_iter8.png)
+![test_image_plot_zero_dce_lite_iter8](image_assets/test_image_plot_zero_dce_lite_200x300_iter8_60.png)
 
-
+### 6.Model: Zero-DCE Lite(lightest model), Epoch:30, Input size: 160x160, Iteration:8, Average Time: CPU-20 ms
+![test_image_plot_zero_dce_lite_160x160_iter8_30](image_assets/test_image_plot_zero_dce_lite_160x160_iter8_30.png)
 
 ## Enhance Image with its Alpha Maps.(Curve Parameter Maps)
 ![enhanced_result_with_alpha_maps_zero_dce_100](image_assets/enhanced_result_with_alpha_maps_zero_dce_100.jpg)
 
 ![enhanced_result_with_alpha_maps_zero_dce_512x512_e_60](image_assets/enhanced_result_with_alpha_maps_zero_dce_512x512_e_60.jpg)
 
+![enhanced_result_with_alpha_maps_zero_dce_lite_160x160_iter8_30](image_assets/enhanced_result_with_alpha_maps_zero_dce_lite_160x160_iter8_30.jpeg)
 ## Test Results on out of dataset images
 
 |<img src="sample_images/low_light_chairs.jpg" alt="img" width=400 height=250>|<img src="output/zero_dce_256x256_iter4_60_enhanced_low_light_chairs.jpg" alt="img" width=400 height=250 >|
@@ -293,8 +394,31 @@ $ python single_image_enhance.py --model_path Trained_model/zero_dce_iter6/zero_
 |:--:|:--:|
 |low light image|Enhanced Image(Zero-DCE lite, epoch:60, interation:6)|
 
+## Test Results of Zero-DCE-UltraLite model(For Real-Time Low Light Image Enhancement) 
+Input size = 160x160, Iteration = 8, Epoch = 30
+
+|<img src="sample_images/low_light_factoryside.jpeg" alt="img" width=300 height=200>|<img src="output/zero_dce_lite_160x160_iter8_30_enhanced_low_light_factoryside.jpg" alt="img" width=300 height=200 >|
+|:--:|:--:|
+|Low light Image|Enhanced Image|
+
+|<img src="sample_images/low_light_pizza.jpeg" alt="img" width=300 height=300>|<img src="output/zero_dce_lite_160x160_iter8_30_enhanced_low_light_pizza.jpg" alt="img" width=300 height=300 >|
+|:--:|:--:|
+|Low light Image|Enhanced Image|
+
+|<img src="sample_images/low_light_road_side.jpg" alt="img" width=300 height=400>|<img src="output/zero_dce_lite_160x160_iter8_30_enhanced_low_light_road_side.jpg" alt="img" width=300 height=400 >|
+|:--:|:--:|
+|Low light Image|Enhanced Image|
+
+|<img src="sample_images/low_light_sunrise.jpg" alt="img" width=400 height=250>|<img src="output/zero_dce_lite_160x160_iter8_30_enhanced_low_light_sunrise.jpg" alt="img" width=400 height=250 >|
+|:--:|:--:|
+|Low light Image|Enhanced Image|
+
 # Best SavedModel for Zero-DCE and Zero-DCE Lite
-## Releasing soon
+### Zero-DCE: [SavedModel](https://github.com/Thehunk1206/Zero-DCE/tree/master/Trained_model/zero_dce_iter8/zero_dce_200x300_iter8_30)
+
+### Zero-DCE-Lite: [SavedModel](https://github.com/Thehunk1206/Zero-DCE/tree/master/Trained_model/zero_dce_lite_iter8/zero_dce_lite_200x300_iter8_60), [Tflite](https://github.com/Thehunk1206/Zero-DCE/blob/master/TFLITE_models/zero_dce_lite_200x300_iter8_60.tflite)  
+
+### Zero-DCE-UltraLite(For real-time enhancement on Mobile devices): [SavedModel](https://github.com/Thehunk1206/Zero-DCE/tree/master/Trained_model/zero_dce_lite_iter8/zero_dce_lite_160x160_iter8_30), [TFlite](https://github.com/Thehunk1206/Zero-DCE/blob/master/TFLITE_models/zero_dce_lite_160x160_iter8_30.tflite)
 
 # Demo Apllication
 ## Mobile Demo application of our trained model is comming soon
@@ -349,5 +473,6 @@ Dataset
 
 } 
 ```
-
+If you like this work drop a :star: 
+Any query or want to collaborate? Drop a mail 📧 at mail2tauhidkhan@gmail.com
 

@@ -142,9 +142,9 @@ class ZeroDCE_lite(tf.keras.Model):
         illumination_smoothness_loss: tf.keras.losses.Loss,
         loss_weights: dict = {
             'spatial_consistency_w': 1.0,
-            'exposure_control_w': 10.0,
-            'color_constancy_w': 5.0,
-            'illumination_smoothness_w': 800.0
+            'exposure_control_w': 70.0,
+            'color_constancy_w': 200.0,
+            'illumination_smoothness_w': 1200.0
         },
         **kwargs
     ):
@@ -234,7 +234,7 @@ class ZeroDCE_lite(tf.keras.Model):
 
 if __name__ == "__main__":
     x = tf.random.normal([1, 400, 600, 3])
-    model = ZeroDCE_lite(filters=32, iteration=8, IMG_H=400, IMG_W=600, IMG_C=3)
+    model = ZeroDCE_lite(filters=24, iteration=8, IMG_H=400, IMG_W=600, IMG_C=3)
     tf.print(model.summary(plot=True))
     tf.print(model.get_config())
     y,a_map = model(x)
