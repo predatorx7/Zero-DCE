@@ -5,7 +5,9 @@ import 'type.dart';
 
 class AppTheme {
   static ThemeData regular = ThemeData(
-    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+    primarySwatch: Colors.deepPurple,
+    colorScheme:
+        ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple).copyWith(
       primary: const Color(0xFF6750A4),
       onPrimary: Colors.white,
       secondary: const Color(0xff625b71),
@@ -24,12 +26,12 @@ class AppTheme {
       elevation: 0,
       centerTitle: true,
       titleTextStyle: TextStyle(
-        color: Colors.black,
+        color: Colors.white,
         fontWeight: FontWeight.bold,
         fontSize: 21,
       ),
-      foregroundColor: Colors.black,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      foregroundColor: Colors.white,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
     ),
     tabBarTheme: TabBarTheme(
       labelStyle: AppTextTheme.textTheme.bodyText1!.copyWith(
