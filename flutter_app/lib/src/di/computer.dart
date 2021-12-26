@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:isolate';
 
 import 'package:camera/camera.dart';
 import 'package:cat/src/ui/widget/camera_view.dart';
@@ -7,17 +6,13 @@ import 'package:cat/src/utils/isolate.dart';
 import 'package:magnific_core/magnific_core.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
-class ViewComputer {
-  ViewComputer(this.controls, this.interpreter);
+class XComputer {
+  XComputer(this.controls, this.interpreter);
 
   final CameraViewControlsDelegate controls;
   final Interpreter interpreter;
 
   void attach() async {
-    // Spawn a new isolate
-    _isolateUtils = IsolateUtils();
-    await _isolateUtils!.start();
-
     controls.startImageStream(_onCameraImage);
     controls.setOnRecreateCallback(_onControllerChange);
   }
@@ -33,9 +28,8 @@ class ViewComputer {
     final uiThreadTimeStart = DateTime.now().millisecondsSinceEpoch;
 
     // Data to be passed to inference isolate
-    final isolateData = IsolateData(
+    final isolateData = ComputationData(
       image,
-      interpreter.address,
       [],
     );
 
@@ -56,17 +50,10 @@ class ViewComputer {
     logger.config('Inference completed in $uiThreadInferenceElapsedTime');
   }
 
-  /// Instance of [IsolateUtils]
-  IsolateUtils? _isolateUtils;
-
   /// Runs inference in another isolate
-  Future<Map<String, dynamic>> inference(IsolateData isolateData) async {
-    final responsePort = ReceivePort();
-    _isolateUtils?.sendPort?.send(
-      isolateData..responsePort = responsePort.sendPort,
-    );
-    var results = await responsePort.first;
-    return results;
+  Future<Map<String, dynamic>?> inference(ComputationData isolateData) {
+    final computer = ComputationUtils();
+    return computer.compute(isolateData, interpreter);
   }
 
   void _onControllerChange() {

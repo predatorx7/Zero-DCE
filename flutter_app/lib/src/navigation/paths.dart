@@ -1,8 +1,6 @@
-import 'package:camera/camera.dart';
 import 'package:cat/src/ui/launch.dart';
 import 'package:cat/src/ui/screen/failed.dart';
 import 'package:cat/src/ui/screen/home.dart';
-import 'package:cat/src/ui/screen/target.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:navigator/navigator.dart';
 

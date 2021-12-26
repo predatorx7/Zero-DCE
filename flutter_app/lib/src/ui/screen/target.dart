@@ -25,25 +25,27 @@ class _TargetScreenState extends ConsumerState<TargetScreen> {
     return cameraKey.currentState;
   }
 
-  late ViewComputer _computer;
+  late XComputer _computer;
 
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      final models = ref.read(modelInterpretorProvider);
-      final controls = getControls();
-      if (controls == null) {
-        logger.warning('Controls is null');
-        return;
-      }
-      if (models == null) {
-        logger.warning('Controls is null');
-        return;
-      }
-      _computer = ViewComputer(controls, models);
-      _computer.attach();
-    });
+    Future.microtask(initStateAsync);
+  }
+
+  void initStateAsync() async {
+    final interpretor = ref.read(modelInterpretorProvider);
+    final controls = getControls();
+    if (controls == null) {
+      logger.warning('Controls is null');
+      return;
+    }
+    if (interpretor == null) {
+      logger.warning('Controls is null');
+      return;
+    }
+    _computer = XComputer(controls, interpretor);
+    _computer.attach();
   }
 
   @override

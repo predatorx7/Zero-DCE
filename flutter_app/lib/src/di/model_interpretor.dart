@@ -2,7 +2,6 @@ import 'package:cat/src/model/tflite.dart';
 import 'package:magnific_core/magnific_core.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
-import 'package:tflite_flutter/tflite_flutter.dart';
 
 class ModelInterpretorProvider extends StateNotifier<tfl.Interpreter?> {
   ModelInterpretorProvider() : super(null);
