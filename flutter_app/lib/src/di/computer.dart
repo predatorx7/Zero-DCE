@@ -13,7 +13,6 @@ class XComputer {
   final Interpreter interpreter;
 
   void attach() async {
-    controls.startImageStream(_onCameraImage);
     controls.setOnRecreateCallback(_onControllerChange);
   }
 
@@ -47,11 +46,11 @@ class XComputer {
     final uiThreadInferenceElapsedTime =
         DateTime.now().millisecondsSinceEpoch - uiThreadTimeStart;
 
-    logger.config('Inference completed in $uiThreadInferenceElapsedTime');
+    logger.config('Inference completed in $uiThreadInferenceElapsedTime ms');
   }
 
   /// Runs inference in another isolate
-  Future<Map<int, Object>?> inference(ComputationData isolateData) {
+  Future<Map<int, Object>> inference(ComputationData isolateData) {
     final computer = ComputationUtils();
     return computer.compute(isolateData, interpreter);
   }

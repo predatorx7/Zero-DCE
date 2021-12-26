@@ -11,7 +11,7 @@ import 'image.dart';
 
 /// Manages separate Isolate instance for inference
 class ComputationUtils {
-  Cancelable<Map<int, Object>?> compute(
+  Cancelable<Map<int, Object>> compute(
     ComputationData isolateData,
     Interpreter interpreter,
   ) {
@@ -23,7 +23,7 @@ class ComputationUtils {
     );
   }
 
-  static Map<int, Object>? _run(
+  static Map<int, Object> _run(
     ComputationData isolateData,
     int interpreterAddress,
   ) {
@@ -34,16 +34,14 @@ class ComputationUtils {
       isolateData.cameraImage,
     );
     if (image == null) {
-      logger.config('Image was null');
-
-      return null;
+      return {};
     }
 
     if (Platform.isAndroid) {
       image = image_lib.copyRotate(image, 90);
     }
 
-    return _runner.predict(image);
+    return _runner.predict(image) ?? {};
   }
 }
 

@@ -47,15 +47,17 @@ class CameraViewState extends State<CameraView>
       widget.description,
       widget.resolutionPreset,
       enableAudio: false,
-      imageFormatGroup: ImageFormatGroup.jpeg,
+      imageFormatGroup: ImageFormatGroup.bgra8888,
     );
     controller.initialize().then((_) {
       if (!mounted) {
         return;
       }
+      _created = true;
       _updatePreviewSize();
       controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
       setState(() {});
+      _onRecreated?.call();
     });
   }
 
@@ -179,9 +181,13 @@ mixin CameraViewControlsDelegate {
   void stopImageStream();
 
   void Function()? _onRecreated;
+  bool _created = false;
 
   void setOnRecreateCallback(void Function() onRecreate) {
     _onRecreated = onRecreate;
+    if (_created) {
+      onRecreate();
+    }
   }
 }
 
