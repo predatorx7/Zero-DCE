@@ -11,7 +11,7 @@ import 'image.dart';
 
 /// Manages separate Isolate instance for inference
 class ComputationUtils {
-  Cancelable<Map<String, dynamic>?> compute(
+  Cancelable<Map<int, Object>?> compute(
     ComputationData isolateData,
     Interpreter interpreter,
   ) {
@@ -23,7 +23,7 @@ class ComputationUtils {
     );
   }
 
-  static Map<String, dynamic>? _run(
+  static Map<int, Object>? _run(
     ComputationData isolateData,
     int interpreterAddress,
   ) {

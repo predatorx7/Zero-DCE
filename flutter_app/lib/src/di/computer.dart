@@ -51,7 +51,7 @@ class XComputer {
   }
 
   /// Runs inference in another isolate
-  Future<Map<String, dynamic>?> inference(ComputationData isolateData) {
+  Future<Map<int, Object>?> inference(ComputationData isolateData) {
     final computer = ComputationUtils();
     return computer.compute(isolateData, interpreter);
   }
