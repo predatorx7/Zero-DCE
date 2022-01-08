@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
 
 import 'package:image/image.dart';
@@ -27,21 +29,22 @@ class Runner {
         _outputShapes!.add(tensor.shape);
         _outputTypes!.add(tensor.type);
       }
+      print('Output shapes: $_outputShapes');
+      print('Output types: $_outputTypes');
     } catch (e, s) {
-      logger.severe('Failed to load model', e, s);
+      print('Failed to load model: \n$e\n$s');
     }
   }
 
   void run() {}
 
   Map<int, Object>? predict(Image image) {
-    if (_outputShapes != null) {
+    if (_outputShapes == null) {
+      print('Output shapes is null');
       return null;
     }
     final inputImage = TensorImage.fromImage(image);
     final processedImage = getProcessedImage(inputImage);
-
-    final input = [processedImage.buffer];
 
     // TensorBuffers for output tensors
     final outputUselessImage = TensorBufferFloat(_outputShapes![0]);
@@ -53,7 +56,10 @@ class Runner {
       1: outputAlphaMap.buffer,
     };
 
-    interpreter.runForMultipleInputs(input, outputs);
+    final input = processedImage.buffer;
+    print('input: $input');
+    interpreter.runForMultipleInputs([input], outputs);
+    print('outputs: $outputs');
 
     return outputs;
   }
@@ -64,9 +70,10 @@ class Runner {
 
   /// Pre-process the image
   TensorImage getProcessedImage(TensorImage inputImage) {
-    final padSize = max(inputImage.height, inputImage.width);
+    // final padSize = max(inputImage.height, inputImage.width);
     imageProcessor ??= ImageProcessorBuilder()
-        .add(ResizeWithCropOrPadOp(padSize, padSize))
+        // .add(ResizeWithCropOrPadOp(padSize, padSize))
+        .add(NormalizeOp(0, 255))
         .add(ResizeOp(inputSize, inputSize, ResizeMethod.BILINEAR))
         .build();
     inputImage = imageProcessor!.process(inputImage);

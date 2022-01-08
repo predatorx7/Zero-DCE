@@ -29,7 +29,6 @@ class XComputer {
     // Data to be passed to inference isolate
     final isolateData = ComputationData(
       image,
-      [],
     );
 
     // We could have simply used the compute method as well however

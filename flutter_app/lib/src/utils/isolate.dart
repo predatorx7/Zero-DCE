@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -36,6 +38,8 @@ class ComputationUtils {
     if (image == null) {
       return {};
     }
+    
+    print('$interpreterAddress starting');
 
     if (Platform.isAndroid) {
       image = image_lib.copyRotate(image, 90);
@@ -48,10 +52,8 @@ class ComputationUtils {
 /// Bundle data to pass between Isolate
 class ComputationData {
   final CameraImage cameraImage;
-  final List<String> labels;
 
   const ComputationData(
     this.cameraImage,
-    this.labels,
   );
 }
